@@ -7,14 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC7FD72E25AB7F3500C35D2A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7FD72D25AB7F3500C35D2A /* MainViewModel.swift */; };
+		AC7FD73125AB7F9600C35D2A /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7FD73025AB7F9600C35D2A /* MainModel.swift */; };
 		ACD89DA825AB6C8C00E61822 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DA725AB6C8C00E61822 /* AppDelegate.swift */; };
 		ACD89DAA25AB6C8C00E61822 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DA925AB6C8C00E61822 /* SceneDelegate.swift */; };
-		ACD89DAC25AB6C8C00E61822 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DAB25AB6C8C00E61822 /* ViewController.swift */; };
+		ACD89DAC25AB6C8C00E61822 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DAB25AB6C8C00E61822 /* MainViewController.swift */; };
 		ACD89DAF25AB6C8C00E61822 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACD89DAD25AB6C8C00E61822 /* Main.storyboard */; };
 		ACD89DB125AB6C9600E61822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACD89DB025AB6C9600E61822 /* Assets.xcassets */; };
 		ACD89DB425AB6C9600E61822 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACD89DB225AB6C9600E61822 /* LaunchScreen.storyboard */; };
 		ACD89DBF25AB6C9600E61822 /* WallaWeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DBE25AB6C9600E61822 /* WallaWeatherTests.swift */; };
 		ACD89DCA25AB6C9600E61822 /* WallaWeatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DC925AB6C9600E61822 /* WallaWeatherUITests.swift */; };
+		ACD89DDB25AB704400E61822 /* LargeCityForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DD925AB704400E61822 /* LargeCityForecastCollectionViewCell.swift */; };
+		ACD89DDC25AB704400E61822 /* LargeCityForecastCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD89DDA25AB704400E61822 /* LargeCityForecastCollectionViewCell.xib */; };
+		ACD89DDF25AB705700E61822 /* CompactCityForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DDD25AB705700E61822 /* CompactCityForecastCollectionViewCell.swift */; };
+		ACD89DE025AB705700E61822 /* CompactCityForecastCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD89DDE25AB705700E61822 /* CompactCityForecastCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,10 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC7FD72D25AB7F3500C35D2A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		AC7FD73025AB7F9600C35D2A /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		ACD89DA425AB6C8C00E61822 /* WallaWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallaWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD89DA725AB6C8C00E61822 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACD89DA925AB6C8C00E61822 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		ACD89DAB25AB6C8C00E61822 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		ACD89DAB25AB6C8C00E61822 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		ACD89DAE25AB6C8C00E61822 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ACD89DB025AB6C9600E61822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACD89DB325AB6C9600E61822 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +57,10 @@
 		ACD89DC525AB6C9600E61822 /* WallaWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WallaWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD89DC925AB6C9600E61822 /* WallaWeatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallaWeatherUITests.swift; sourceTree = "<group>"; };
 		ACD89DCB25AB6C9600E61822 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACD89DD925AB704400E61822 /* LargeCityForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeCityForecastCollectionViewCell.swift; sourceTree = "<group>"; };
+		ACD89DDA25AB704400E61822 /* LargeCityForecastCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeCityForecastCollectionViewCell.xib; sourceTree = "<group>"; };
+		ACD89DDD25AB705700E61822 /* CompactCityForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactCityForecastCollectionViewCell.swift; sourceTree = "<group>"; };
+		ACD89DDE25AB705700E61822 /* CompactCityForecastCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompactCityForecastCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +88,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC7FD72C25AB7F1700C35D2A /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AC7FD72D25AB7F3500C35D2A /* MainViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AC7FD72F25AB7F7F00C35D2A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AC7FD73025AB7F9600C35D2A /* MainModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		ACD89D9B25AB6C8C00E61822 = {
 			isa = PBXGroup;
 			children = (
@@ -101,7 +129,9 @@
 			children = (
 				ACD89DA725AB6C8C00E61822 /* AppDelegate.swift */,
 				ACD89DA925AB6C8C00E61822 /* SceneDelegate.swift */,
-				ACD89DAB25AB6C8C00E61822 /* ViewController.swift */,
+				AC7FD72F25AB7F7F00C35D2A /* Models */,
+				AC7FD72C25AB7F1700C35D2A /* ViewModels */,
+				ACD89DD725AB700A00E61822 /* Views */,
 				ACD89DAD25AB6C8C00E61822 /* Main.storyboard */,
 				ACD89DB025AB6C9600E61822 /* Assets.xcassets */,
 				ACD89DB225AB6C9600E61822 /* LaunchScreen.storyboard */,
@@ -126,6 +156,26 @@
 				ACD89DCB25AB6C9600E61822 /* Info.plist */,
 			);
 			path = WallaWeatherUITests;
+			sourceTree = "<group>";
+		};
+		ACD89DD725AB700A00E61822 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ACD89DD825AB701500E61822 /* Cells */,
+				ACD89DAB25AB6C8C00E61822 /* MainViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		ACD89DD825AB701500E61822 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				ACD89DD925AB704400E61822 /* LargeCityForecastCollectionViewCell.swift */,
+				ACD89DDA25AB704400E61822 /* LargeCityForecastCollectionViewCell.xib */,
+				ACD89DDD25AB705700E61822 /* CompactCityForecastCollectionViewCell.swift */,
+				ACD89DDE25AB705700E61822 /* CompactCityForecastCollectionViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +284,8 @@
 			files = (
 				ACD89DB425AB6C9600E61822 /* LaunchScreen.storyboard in Resources */,
 				ACD89DB125AB6C9600E61822 /* Assets.xcassets in Resources */,
+				ACD89DE025AB705700E61822 /* CompactCityForecastCollectionViewCell.xib in Resources */,
+				ACD89DDC25AB704400E61822 /* LargeCityForecastCollectionViewCell.xib in Resources */,
 				ACD89DAF25AB6C8C00E61822 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,9 +311,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACD89DAC25AB6C8C00E61822 /* ViewController.swift in Sources */,
+				ACD89DAC25AB6C8C00E61822 /* MainViewController.swift in Sources */,
+				ACD89DDF25AB705700E61822 /* CompactCityForecastCollectionViewCell.swift in Sources */,
 				ACD89DA825AB6C8C00E61822 /* AppDelegate.swift in Sources */,
+				AC7FD73125AB7F9600C35D2A /* MainModel.swift in Sources */,
+				ACD89DDB25AB704400E61822 /* LargeCityForecastCollectionViewCell.swift in Sources */,
 				ACD89DAA25AB6C8C00E61822 /* SceneDelegate.swift in Sources */,
+				AC7FD72E25AB7F3500C35D2A /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,7 +422,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -420,7 +476,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -437,6 +493,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KJSUL68A86;
 				INFOPLIST_FILE = WallaWeather/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -455,6 +512,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KJSUL68A86;
 				INFOPLIST_FILE = WallaWeather/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
