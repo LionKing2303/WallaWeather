@@ -21,9 +21,13 @@ class ForecastCollectionViewCell: UICollectionViewCell {
 }
 
 class LargeCityForecastCollectionViewCell: ForecastCollectionViewCell {
-
     static var identifier: String {
         "LargeCityForecastCollectionViewCell"
     }
+}
 
+class CompactCityForecastCollectionViewCell: ForecastCollectionViewCell {
+    static var identifier: String {
+        "CompactCityForecastCollectionViewCell"
+    }
 }

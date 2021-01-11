@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC7FCA3A25AC010E003EA859 /* MainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7FCA3925AC010E003EA859 /* MainRepository.swift */; };
 		AC7FD72E25AB7F3500C35D2A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7FD72D25AB7F3500C35D2A /* MainViewModel.swift */; };
 		AC7FD73125AB7F9600C35D2A /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7FD73025AB7F9600C35D2A /* MainModel.swift */; };
 		ACD89DA825AB6C8C00E61822 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DA725AB6C8C00E61822 /* AppDelegate.swift */; };
@@ -17,9 +18,8 @@
 		ACD89DB425AB6C9600E61822 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACD89DB225AB6C9600E61822 /* LaunchScreen.storyboard */; };
 		ACD89DBF25AB6C9600E61822 /* WallaWeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DBE25AB6C9600E61822 /* WallaWeatherTests.swift */; };
 		ACD89DCA25AB6C9600E61822 /* WallaWeatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DC925AB6C9600E61822 /* WallaWeatherUITests.swift */; };
-		ACD89DDB25AB704400E61822 /* LargeCityForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DD925AB704400E61822 /* LargeCityForecastCollectionViewCell.swift */; };
+		ACD89DDB25AB704400E61822 /* ForecastCollectionViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DD925AB704400E61822 /* ForecastCollectionViewCells.swift */; };
 		ACD89DDC25AB704400E61822 /* LargeCityForecastCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD89DDA25AB704400E61822 /* LargeCityForecastCollectionViewCell.xib */; };
-		ACD89DDF25AB705700E61822 /* CompactCityForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD89DDD25AB705700E61822 /* CompactCityForecastCollectionViewCell.swift */; };
 		ACD89DE025AB705700E61822 /* CompactCityForecastCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD89DDE25AB705700E61822 /* CompactCityForecastCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC7FCA3925AC010E003EA859 /* MainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRepository.swift; sourceTree = "<group>"; };
 		AC7FD72D25AB7F3500C35D2A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		AC7FD73025AB7F9600C35D2A /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		ACD89DA425AB6C8C00E61822 /* WallaWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallaWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,9 +58,8 @@
 		ACD89DC525AB6C9600E61822 /* WallaWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WallaWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD89DC925AB6C9600E61822 /* WallaWeatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallaWeatherUITests.swift; sourceTree = "<group>"; };
 		ACD89DCB25AB6C9600E61822 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ACD89DD925AB704400E61822 /* LargeCityForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeCityForecastCollectionViewCell.swift; sourceTree = "<group>"; };
+		ACD89DD925AB704400E61822 /* ForecastCollectionViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCollectionViewCells.swift; sourceTree = "<group>"; };
 		ACD89DDA25AB704400E61822 /* LargeCityForecastCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeCityForecastCollectionViewCell.xib; sourceTree = "<group>"; };
-		ACD89DDD25AB705700E61822 /* CompactCityForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactCityForecastCollectionViewCell.swift; sourceTree = "<group>"; };
 		ACD89DDE25AB705700E61822 /* CompactCityForecastCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompactCityForecastCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC7FCA3825AC00E5003EA859 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				AC7FCA3925AC010E003EA859 /* MainRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 		AC7FD72C25AB7F1700C35D2A /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +140,7 @@
 				AC7FD72F25AB7F7F00C35D2A /* Models */,
 				AC7FD72C25AB7F1700C35D2A /* ViewModels */,
 				ACD89DD725AB700A00E61822 /* Views */,
+				AC7FCA3825AC00E5003EA859 /* Repositories */,
 				ACD89DAD25AB6C8C00E61822 /* Main.storyboard */,
 				ACD89DB025AB6C9600E61822 /* Assets.xcassets */,
 				ACD89DB225AB6C9600E61822 /* LaunchScreen.storyboard */,
@@ -170,9 +179,8 @@
 		ACD89DD825AB701500E61822 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				ACD89DD925AB704400E61822 /* LargeCityForecastCollectionViewCell.swift */,
+				ACD89DD925AB704400E61822 /* ForecastCollectionViewCells.swift */,
 				ACD89DDA25AB704400E61822 /* LargeCityForecastCollectionViewCell.xib */,
-				ACD89DDD25AB705700E61822 /* CompactCityForecastCollectionViewCell.swift */,
 				ACD89DDE25AB705700E61822 /* CompactCityForecastCollectionViewCell.xib */,
 			);
 			path = Cells;
@@ -311,11 +319,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC7FCA3A25AC010E003EA859 /* MainRepository.swift in Sources */,
 				ACD89DAC25AB6C8C00E61822 /* MainViewController.swift in Sources */,
-				ACD89DDF25AB705700E61822 /* CompactCityForecastCollectionViewCell.swift in Sources */,
 				ACD89DA825AB6C8C00E61822 /* AppDelegate.swift in Sources */,
 				AC7FD73125AB7F9600C35D2A /* MainModel.swift in Sources */,
-				ACD89DDB25AB704400E61822 /* LargeCityForecastCollectionViewCell.swift in Sources */,
+				ACD89DDB25AB704400E61822 /* ForecastCollectionViewCells.swift in Sources */,
 				ACD89DAA25AB6C8C00E61822 /* SceneDelegate.swift in Sources */,
 				AC7FD72E25AB7F3500C35D2A /* MainViewModel.swift in Sources */,
 			);

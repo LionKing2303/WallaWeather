@@ -23,6 +23,10 @@ enum Layout {
     }
 }
 
+struct Some: Codable {
+    
+}
+
 class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
     
     // MARK: -- Outlets
@@ -30,8 +34,9 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     @IBOutlet weak var layoutSwitch: UIButton!
     
     // MARK: -- Private variables
-    private var viewModel: MainViewModel = .init()
+    private var viewModel: MainViewModel = .init(repository: MainRepository.init())
     private var cancellables: Set<AnyCancellable> = []
+    private var layout: Layout = .list
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,15 +45,19 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         collectionView.register(UINib(nibName: LargeCityForecastCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: LargeCityForecastCollectionViewCell.identifier)
         collectionView.register(UINib(nibName: CompactCityForecastCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CompactCityForecastCollectionViewCell.identifier)
 
-        viewModel.$layoutSwitchAsset
-            .sink { (asset) in
-                self.layoutSwitch.setImage(UIImage(named: asset), for: .normal)
+        viewModel.refresh
+            .sink { _ in
+                self.collectionView.reloadData()
             }
             .store(in: &cancellables)
+       
     }
 
     @IBAction func onLayoutSwitch(_ sender: Any) {
-        viewModel.switchLayout()
+        if layout == .list { layout = .grid }
+        else if layout == .grid { layout = .list }
+        collectionView.reloadData()
+        layoutSwitch.setImage(UIImage(systemName: layout.asset()), for: .normal)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -58,9 +67,9 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: ForecastCollectionViewCell?
         
-        if viewModel.layout == .list {
+        if self.layout == .list {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: LargeCityForecastCollectionViewCell.identifier, for: indexPath) as? LargeCityForecastCollectionViewCell
-        } else if viewModel.layout == .grid {
+        } else if self.layout == .grid {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompactCityForecastCollectionViewCell.identifier, for: indexPath) as? CompactCityForecastCollectionViewCell
         }
     
@@ -73,9 +82,9 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        if viewModel.layout == .list {
+        if self.layout == .list {
             return CGSize(width: UIScreen.main.bounds.width, height: 44.0)
-        } else if viewModel.layout == .grid {
+        } else if self.layout == .grid {
             return CGSize(width: (UIScreen.main.bounds.width-30)/3, height: 92.0)
         }
         return .zero

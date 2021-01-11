@@ -6,6 +6,7 @@
 //  Copyright © 2021 Arie Peretz. All rights reserved.
 //
 
+import Foundation
 import Combine
 
 class MainViewModel: ObservableObject {
@@ -15,12 +16,16 @@ class MainViewModel: ObservableObject {
         MainDataModel.Forecast(cityName: "Jerusalem", forecast: "1 - 3"),
         MainDataModel.Forecast(cityName: "Jerusalem", forecast: "1 - 3")
     ])
-    var layout: Layout = .grid
-    @Published var layoutSwitchAsset: String = Layout.grid.asset()
+    var repository: Repository
+    var refresh = PassthroughSubject<Void,Never>()
     
-    func switchLayout() {
-        if layout == .list { layout = .grid }
-        else if layout == .grid { layout = .list }
-        
+    init(repository: Repository) {
+        self.repository = repository
+        self.repository.fetchForecasts { (dataModel) in
+            self.dataModel = dataModel
+            DispatchQueue.main.async {
+                self.refresh.send()
+            }
+        }
     }
 }

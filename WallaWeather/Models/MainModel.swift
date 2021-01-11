@@ -18,3 +18,21 @@ extension MainDataModel {
         let forecast: String
     }
 }
+
+struct CurrentWeatherResponseModel: Codable {
+    let list: [City]
+}
+
+extension CurrentWeatherResponseModel {
+    struct City: Codable {
+        let id: Double?
+        let name: String?
+        let main: Main?
+    }
+}
+
+extension CurrentWeatherResponseModel {
+    struct Main: Codable {
+        let temp: Double?
+    }
+}
