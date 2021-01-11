@@ -9,22 +9,18 @@
 import UIKit
 import Combine
 
-enum Layout {
+enum Layout: String {
     case list
     case grid
     
     func asset() -> String {
         switch self {
-        case .grid:
-            return "rectangle.grid.1x2.fill"
         case .list:
+            return "rectangle.grid.1x2.fill"
+        case .grid:
             return "square.grid.3x2.fill"
         }
     }
-}
-
-struct Some: Codable {
-    
 }
 
 class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
@@ -36,28 +32,45 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     // MARK: -- Private variables
     private var viewModel: MainViewModel = .init(repository: MainRepository.init())
     private var cancellables: Set<AnyCancellable> = []
-    private var layout: Layout = .list
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
+        registerCells()
+        bind()
+        viewModel.fetchForecasts()
+    }
+    
+    private func registerCells() {
+        // Register cells
         collectionView.register(UINib(nibName: LargeCityForecastCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: LargeCityForecastCollectionViewCell.identifier)
         collectionView.register(UINib(nibName: CompactCityForecastCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CompactCityForecastCollectionViewCell.identifier)
-
-        viewModel.refresh
-            .sink { _ in
-                self.collectionView.reloadData()
+    }
+    
+    private func bind() {
+        // Bind a publisher that will tell us to refresh the collection view
+         viewModel.refresh
+             .sink { _ in
+                self.refreshUI()
+             }
+             .store(in: &cancellables)
+        
+        // Bind a string publisher that will tell us what asset to use on the layout switch button
+        viewModel.layoutAsset
+            .print()
+            .replaceNil(with: "")
+            .sink { (asset) in
+                self.layoutSwitch.setImage(UIImage(systemName: asset), for: .normal)
             }
             .store(in: &cancellables)
-       
     }
 
-    @IBAction func onLayoutSwitch(_ sender: Any) {
-        if layout == .list { layout = .grid }
-        else if layout == .grid { layout = .list }
+    private func refreshUI() {
         collectionView.reloadData()
-        layoutSwitch.setImage(UIImage(systemName: layout.asset()), for: .normal)
+    }
+    
+    @IBAction func onLayoutSwitch(_ sender: Any) {        
+        viewModel.toggleLayout()
+        refreshUI()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -66,10 +79,10 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: ForecastCollectionViewCell?
-        
-        if self.layout == .list {
+
+        if viewModel.getLayout() == .grid {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: LargeCityForecastCollectionViewCell.identifier, for: indexPath) as? LargeCityForecastCollectionViewCell
-        } else if self.layout == .grid {
+        } else if viewModel.getLayout() == .list {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompactCityForecastCollectionViewCell.identifier, for: indexPath) as? CompactCityForecastCollectionViewCell
         }
     
@@ -79,12 +92,12 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        if self.layout == .list {
+        // Set collection view cell custom size for each layout
+        if viewModel.getLayout() == .grid {
             return CGSize(width: UIScreen.main.bounds.width, height: 44.0)
-        } else if self.layout == .grid {
+        } else if viewModel.getLayout() == .list {
             return CGSize(width: (UIScreen.main.bounds.width-30)/3, height: 92.0)
         }
         return .zero

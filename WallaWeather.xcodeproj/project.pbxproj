@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC760E9125ACA01900866619 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC760E9025ACA01900866619 /* APIClient.swift */; };
+		AC760E9325ACAFFF00866619 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC760E9225ACAFFF00866619 /* Utilities.swift */; };
 		AC7FCA3A25AC010E003EA859 /* MainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7FCA3925AC010E003EA859 /* MainRepository.swift */; };
 		AC7FD72E25AB7F3500C35D2A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7FD72D25AB7F3500C35D2A /* MainViewModel.swift */; };
 		AC7FD73125AB7F9600C35D2A /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7FD73025AB7F9600C35D2A /* MainModel.swift */; };
@@ -41,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC760E9025ACA01900866619 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		AC760E9225ACAFFF00866619 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		AC7FCA3925AC010E003EA859 /* MainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRepository.swift; sourceTree = "<group>"; };
 		AC7FD72D25AB7F3500C35D2A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		AC7FD73025AB7F9600C35D2A /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				AC7FCA3925AC010E003EA859 /* MainRepository.swift */,
+				AC760E9025ACA01900866619 /* APIClient.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -141,6 +146,7 @@
 				AC7FD72C25AB7F1700C35D2A /* ViewModels */,
 				ACD89DD725AB700A00E61822 /* Views */,
 				AC7FCA3825AC00E5003EA859 /* Repositories */,
+				AC760E9225ACAFFF00866619 /* Utilities.swift */,
 				ACD89DAD25AB6C8C00E61822 /* Main.storyboard */,
 				ACD89DB025AB6C9600E61822 /* Assets.xcassets */,
 				ACD89DB225AB6C9600E61822 /* LaunchScreen.storyboard */,
@@ -322,8 +328,10 @@
 				AC7FCA3A25AC010E003EA859 /* MainRepository.swift in Sources */,
 				ACD89DAC25AB6C8C00E61822 /* MainViewController.swift in Sources */,
 				ACD89DA825AB6C8C00E61822 /* AppDelegate.swift in Sources */,
+				AC760E9125ACA01900866619 /* APIClient.swift in Sources */,
 				AC7FD73125AB7F9600C35D2A /* MainModel.swift in Sources */,
 				ACD89DDB25AB704400E61822 /* ForecastCollectionViewCells.swift in Sources */,
+				AC760E9325ACAFFF00866619 /* Utilities.swift in Sources */,
 				ACD89DAA25AB6C8C00E61822 /* SceneDelegate.swift in Sources */,
 				AC7FD72E25AB7F3500C35D2A /* MainViewModel.swift in Sources */,
 			);

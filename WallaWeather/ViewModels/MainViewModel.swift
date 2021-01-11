@@ -10,22 +10,52 @@ import Foundation
 import Combine
 
 class MainViewModel: ObservableObject {
-    var dataModel: MainDataModel = MainDataModel(forecasts: [
-        MainDataModel.Forecast(cityName: "Jerusalem", forecast: "1 - 3"),
-        MainDataModel.Forecast(cityName: "Jerusalem", forecast: "1 - 3"),
-        MainDataModel.Forecast(cityName: "Jerusalem", forecast: "1 - 3"),
-        MainDataModel.Forecast(cityName: "Jerusalem", forecast: "1 - 3")
-    ])
+    var dataModel: MainDataModel = MainDataModel(forecasts: [])
     var repository: Repository
+    @UserDefaultsBacked<String>(key: "walla.weather.layout", defaultValue: Layout.list.rawValue)
+       var layout
+    
+    // MARK: -- Subjects
     var refresh = PassthroughSubject<Void,Never>()
+    var layoutAsset = CurrentValueSubject<String?,Never>(nil)
     
     init(repository: Repository) {
         self.repository = repository
-        self.repository.fetchForecasts { (dataModel) in
-            self.dataModel = dataModel
+        self.layoutAsset.send(Layout(rawValue: self.layout)?.asset())
+    }
+    
+    func fetchForecasts() {
+        self.repository.fetchForecasts { (responseModel) in
+            self.dataModel = self.format(responseModel: responseModel)
             DispatchQueue.main.async {
                 self.refresh.send()
             }
         }
+    }
+    
+    private func format(responseModel:CurrentWeatherResponseModel) -> MainDataModel {
+        // Convert response into data for display
+        let forecasts = responseModel.list.map { city -> MainDataModel.Forecast in
+            .init(cityName: city.name ?? "", forecast: "\(city.main?.temp ?? 0.0)℃" )
+        }
+        return MainDataModel(forecasts: forecasts)
+    }
+    
+    func toggleLayout() {
+        guard let layout = Layout(rawValue: layout) else { return }
+        var asset: String?
+        if layout == .list {
+            self.layout = Layout.grid.rawValue
+            asset = Layout.grid.asset()
+        }
+        else if layout == .grid {
+            self.layout = Layout.list.rawValue
+            asset = Layout.list.asset()
+        }
+        layoutAsset.send(asset)
+    }
+    
+    func getLayout() -> Layout {
+        return Layout(rawValue: self.layout) ?? .list
     }
 }
