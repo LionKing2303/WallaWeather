@@ -15,22 +15,33 @@ class MainViewModel: ObservableObject {
     @UserDefaultsBacked<String>(key: "walla.weather.layout", defaultValue: Layout.list.rawValue)
        var layout
     
-    // MARK: -- Subjects
+    // MARK: -- Publishers
     var refresh = PassthroughSubject<Void,Never>()
     var layoutAsset = CurrentValueSubject<String?,Never>(nil)
+    var lastUpdate = PassthroughSubject<String?,Never>()
     
+    // MARK: -- Private variables
+    private var cancellables: Set<AnyCancellable> = []
+
     init(repository: Repository) {
         self.repository = repository
         self.layoutAsset.send(Layout(rawValue: self.layout)?.asset())
     }
     
     func fetchForecasts() {
-        self.repository.fetchForecasts { (responseModel) in
-            self.dataModel = self.format(responseModel: responseModel)
-            DispatchQueue.main.async {
-                self.refresh.send()
+        self.repository.fetchForecasts()
+            .replaceError(with: CurrentWeatherResponseModel.cached())
+            .replaceNil(with: CurrentWeatherResponseModel(list: []))
+            .map { responseModel in
+                self.format(responseModel: responseModel)
             }
-        }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { (dataModel) in
+                self.dataModel = dataModel
+                self.refresh.send()
+                self.displayLastUpdate()
+            })
+            .store(in: &cancellables)
     }
     
     private func format(responseModel:CurrentWeatherResponseModel) -> MainDataModel {
@@ -39,6 +50,18 @@ class MainViewModel: ObservableObject {
             .init(cityName: city.name ?? "", forecast: "\(city.main?.temp ?? 0.0)℃" )
         }
         return MainDataModel(forecasts: forecasts)
+    }
+    
+    private func displayLastUpdate() {
+        // Display last update date if available
+        if let lastUpdateDate = CurrentWeatherResponseModel.cachedDate() {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .short
+            self.lastUpdate.send("Last update: \(formatter.string(from: lastUpdateDate))")
+        } else {
+            self.lastUpdate.send("Last update: -")
+        }
     }
     
     func toggleLayout() {

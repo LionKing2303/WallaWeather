@@ -15,14 +15,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weather" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTN-gR-eOy">
-                                <rect key="frame" x="20" y="64" width="120" height="33.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="28"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="imj-N9-nkF">
+                                <rect key="frame" x="20" y="64" width="120" height="54"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weather" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zTN-gR-eOy">
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="33.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="28"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last update: -" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTg-0W-APP">
+                                        <rect key="frame" x="0.0" y="33.5" width="120" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qyq-uD-cqB">
-                                <rect key="frame" x="357.5" y="64" width="36.5" height="33.5"/>
+                                <rect key="frame" x="357.5" y="72" width="36.5" height="23"/>
                                 <color key="tintColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="square.grid.3x2.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="black"/>
@@ -32,7 +43,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lLv-CT-xgw">
-                                <rect key="frame" x="0.0" y="117.5" width="414" height="744.5"/>
+                                <rect key="frame" x="0.0" y="134" width="414" height="728"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="njh-Es-Y5n">
                                     <size key="itemSize" width="128" height="128"/>
@@ -49,20 +60,20 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="lLv-CT-xgw" firstAttribute="top" secondItem="Qyq-uD-cqB" secondAttribute="bottom" constant="20" id="DWo-kB-Nt9"/>
+                            <constraint firstItem="lLv-CT-xgw" firstAttribute="top" secondItem="imj-N9-nkF" secondAttribute="bottom" constant="16" id="1AV-CQ-V74"/>
+                            <constraint firstItem="imj-N9-nkF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="2km-CQ-QTc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="lLv-CT-xgw" secondAttribute="bottom" id="Lzn-Uc-sxu"/>
-                            <constraint firstItem="zTN-gR-eOy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="QO4-Nb-i05"/>
+                            <constraint firstItem="imj-N9-nkF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Pe1-ZL-B23"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lLv-CT-xgw" secondAttribute="trailing" id="U1W-uH-HkA"/>
                             <constraint firstItem="lLv-CT-xgw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="YL5-C9-a43"/>
-                            <constraint firstItem="lLv-CT-xgw" firstAttribute="top" secondItem="zTN-gR-eOy" secondAttribute="bottom" constant="20" id="tQP-ll-uiJ"/>
+                            <constraint firstItem="imj-N9-nkF" firstAttribute="top" secondItem="Qyq-uD-cqB" secondAttribute="top" constant="-8" id="ZoZ-my-3a4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Qyq-uD-cqB" secondAttribute="trailing" constant="20" id="tY9-6J-qAm"/>
-                            <constraint firstItem="Qyq-uD-cqB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="xES-a5-NKe"/>
-                            <constraint firstItem="zTN-gR-eOy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="yMq-jk-aya"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="lLv-CT-xgw" id="gel-0n-Jre"/>
+                        <outlet property="lastUpdate" destination="jTg-0W-APP" id="qVO-IP-hTO"/>
                         <outlet property="layoutSwitch" destination="Qyq-uD-cqB" id="2GZ-hY-bKd"/>
                     </connections>
                 </viewController>

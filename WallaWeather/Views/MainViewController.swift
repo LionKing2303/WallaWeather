@@ -26,6 +26,7 @@ enum Layout: String {
 class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
     
     // MARK: -- Outlets
+    @IBOutlet weak var lastUpdate: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var layoutSwitch: UIButton!
     
@@ -56,11 +57,15 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         // Bind a string publisher that will tell us what asset to use on the layout switch button
         viewModel.layoutAsset
-            .print()
             .replaceNil(with: "")
             .sink { (asset) in
                 self.layoutSwitch.setImage(UIImage(systemName: asset), for: .normal)
             }
+            .store(in: &cancellables)
+        
+        // Bind a string publisher that will show us the last update date
+        viewModel.lastUpdate
+            .assign(to: \.text, on: lastUpdate)
             .store(in: &cancellables)
     }
 

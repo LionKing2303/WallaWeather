@@ -36,3 +36,25 @@ extension CurrentWeatherResponseModel {
         let temp: Double?
     }
 }
+
+extension CurrentWeatherResponseModel {
+    @UserDefaultsBacked<Data?>(key: "walla.weather.cache", defaultValue: nil) private static var cache
+    @UserDefaultsBacked<Date?>(key: "walla.weather.cache.date", defaultValue: nil) private static var cacheDate
+
+    static func cached() -> CurrentWeatherResponseModel? {
+        guard let cacheData = cache else { return nil }
+        let data = try? JSONDecoder().decode(CurrentWeatherResponseModel.self, from: cacheData)
+        return data
+    }
+    
+    static func cachedDate() -> Date? {
+        CurrentWeatherResponseModel.cacheDate
+    }
+    
+    func doCache() {
+        if let data = try? JSONEncoder().encode(self) {
+            CurrentWeatherResponseModel.cache = data
+            CurrentWeatherResponseModel.cacheDate = Date()
+        }
+    }
+}

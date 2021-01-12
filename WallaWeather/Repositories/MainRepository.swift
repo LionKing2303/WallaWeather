@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 enum CityIdentifier: String {
     case Jerusalem = "281184"
@@ -16,36 +17,40 @@ enum CityIdentifier: String {
 }
 
 protocol Repository {
-    func fetchForecasts(completion: @escaping (CurrentWeatherResponseModel)->Void)
+    func fetchForecasts() -> Future<CurrentWeatherResponseModel?,APIClient.APIError>
 }
 
 class MockRepository: Repository {
-    func fetchForecasts(completion: @escaping (CurrentWeatherResponseModel) -> Void) {
-        let forecasts = (1...10).map { index in
-            Double(index)
-        }.map { index in
-            CurrentWeatherResponseModel.City(id: index, name: "City \(Int(index))", main: CurrentWeatherResponseModel.Main(temp: Double(15+index)))
+    func fetchForecasts() -> Future<CurrentWeatherResponseModel?,APIClient.APIError> {
+        return Future { promise in
+            let forecasts = (1...10).map { index in
+                Double(index)
+            }.map { index in
+                CurrentWeatherResponseModel.City(id: index, name: "City \(Int(index))", main: CurrentWeatherResponseModel.Main(temp: Double(15+index)))
+            }
+            promise(.success(CurrentWeatherResponseModel(list: forecasts)))
         }
-        completion(CurrentWeatherResponseModel(list: forecasts))
     }
 }
 
 class MainRepository: Repository {
     
-    func fetchForecasts(completion: @escaping (CurrentWeatherResponseModel) -> Void) {
-        let cityIdentifiers: [CityIdentifier] = [
-            .Jerusalem,
-            .TelAviv,
-            .Haifa,
-            .Eilat
-        ]
-        APIClient.shared.fetchCurrentWeather(cityIdentifiers: cityIdentifiers) { (result) in
-            switch result {
-            case .success(let responseModel):
-                
-                completion(responseModel)
-            case .failure:
-                completion(CurrentWeatherResponseModel(list: []))
+    func fetchForecasts() -> Future<CurrentWeatherResponseModel?,APIClient.APIError> {
+        return Future { promise in
+            let cityIdentifiers: [CityIdentifier] = [
+                .Jerusalem,
+                .TelAviv,
+                .Haifa,
+                .Eilat
+            ]
+            APIClient.shared.fetchCurrentWeather(cityIdentifiers: cityIdentifiers) { (result) in
+                switch result {
+                case .success(let responseModel):
+                    responseModel.doCache()
+                    promise(.success(responseModel))
+                case .failure(let error):
+                    promise(.failure(error))
+                }
             }
         }
     }
