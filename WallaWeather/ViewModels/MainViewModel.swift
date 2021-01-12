@@ -9,9 +9,9 @@
 import Foundation
 import Combine
 
-class MainViewModel: ObservableObject {
+class MainViewModel {
     var dataModel: MainDataModel = MainDataModel(forecasts: [])
-    var repository: Repository
+    var repository: MainRepository
     @UserDefaultsBacked<String>(key: "walla.weather.layout", defaultValue: Layout.list.rawValue)
        var layout
     
@@ -23,7 +23,7 @@ class MainViewModel: ObservableObject {
     // MARK: -- Private variables
     private var cancellables: Set<AnyCancellable> = []
 
-    init(repository: Repository) {
+    init(repository: MainRepository) {
         self.repository = repository
         self.layoutAsset.send(Layout(rawValue: self.layout)?.asset())
     }
@@ -46,8 +46,10 @@ class MainViewModel: ObservableObject {
     
     private func format(responseModel:CurrentWeatherResponseModel) -> MainDataModel {
         // Convert response into data for display
-        let forecasts = responseModel.list.map { city -> MainDataModel.Forecast in
-            .init(cityName: city.name ?? "", forecast: "\(city.main?.temp ?? 0.0)℃" )
+        let forecasts = responseModel.list.filter({ (city) -> Bool in
+            city.id != nil
+        }).map { city -> MainDataModel.Forecast in
+            .init(cityId: String(format: "%.0f", city.id!), cityName: city.name ?? "", forecast: "\(city.main?.temp ?? 0.0)℃" )
         }
         return MainDataModel(forecasts: forecasts)
     }

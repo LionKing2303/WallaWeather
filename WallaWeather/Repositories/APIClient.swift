@@ -22,6 +22,7 @@ class APIClient {
     
     private enum Endpoint: String {
         case currentWeatherGroup = "/data/2.5/group"
+        case forecastFiveDays = "/data/2.5/forecast"
     }
     private enum Method: String {
         case GET
@@ -34,6 +35,13 @@ class APIClient {
             "id": cityIdentifiers.map { $0.rawValue }.joined(separator: ",")
         ]
         self.fetch(parameters: parameters,endpoint: .currentWeatherGroup, method: .GET, completion: completion)
+    }
+    
+    func fetchFiveDaysForecast(cityId: String, completion: @escaping (Result<DetailsResponseModel,APIError>)->Void) {
+        let parameters: [String:String] = [
+            "id": cityId
+        ]
+        self.fetch(parameters: parameters,endpoint: .forecastFiveDays, method: .GET, completion: completion)
     }
     
     private func fetch<T:Codable>(parameters: [String:String], endpoint: Endpoint, method: Method, completion: @escaping (Result<T,APIError>)->Void) {

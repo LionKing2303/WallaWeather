@@ -16,11 +16,11 @@ enum CityIdentifier: String {
     case Eilat = "295277"
 }
 
-protocol Repository {
+protocol MainRepository {
     func fetchForecasts() -> Future<CurrentWeatherResponseModel?,APIClient.APIError>
 }
 
-class MockRepository: Repository {
+class MockMainRepository: MainRepository {
     func fetchForecasts() -> Future<CurrentWeatherResponseModel?,APIClient.APIError> {
         return Future { promise in
             let forecasts = (1...10).map { index in
@@ -33,7 +33,7 @@ class MockRepository: Repository {
     }
 }
 
-class MainRepository: Repository {
+class ServiceMainRepository: MainRepository {
     
     func fetchForecasts() -> Future<CurrentWeatherResponseModel?,APIClient.APIError> {
         return Future { promise in

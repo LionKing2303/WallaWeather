@@ -14,9 +14,17 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var cityName: UILabel!
     @IBOutlet weak var forecast: UILabel!
     
-    func set(forecast: MainDataModel.Forecast) {
+    // MARK: -- Private variables
+    private var cityId: String?
+    
+    func set(cityId: String, forecast: MainDataModel.Forecast) {
+        self.cityId = cityId
         self.cityName.text = forecast.cityName
         self.forecast.text = forecast.forecast
+    }
+    
+    func getCityId() -> String? {
+        cityId
     }
 }
 

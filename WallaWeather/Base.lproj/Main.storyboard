@@ -75,11 +75,42 @@
                         <outlet property="collectionView" destination="lLv-CT-xgw" id="gel-0n-Jre"/>
                         <outlet property="lastUpdate" destination="jTg-0W-APP" id="qVO-IP-hTO"/>
                         <outlet property="layoutSwitch" destination="Qyq-uD-cqB" id="2GZ-hY-bKd"/>
+                        <segue destination="U1G-6o-Ooy" kind="showDetail" identifier="detailsSegue" id="h5w-Hl-sc4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="139" y="139"/>
+        </scene>
+        <!--Details View Controller-->
+        <scene sceneID="STY-Xh-oap">
+            <objects>
+                <viewController id="U1G-6o-Ooy" customClass="DetailsViewController" customModule="WallaWeather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="30N-VV-pSo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="toi-Nd-WBd">
+                                <rect key="frame" x="134.5" y="20" width="145" height="33.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="toi-Nd-WBd" firstAttribute="top" secondItem="ocA-MT-Vjg" secondAttribute="top" constant="20" id="HNf-ti-iFk"/>
+                            <constraint firstItem="toi-Nd-WBd" firstAttribute="centerX" secondItem="ocA-MT-Vjg" secondAttribute="centerX" id="V0F-Hd-nnf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ocA-MT-Vjg"/>
+                    </view>
+                    <connections>
+                        <outlet property="cityName" destination="toi-Nd-WBd" id="Gkn-fm-YcW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jwo-bf-RaF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1007" y="139"/>
         </scene>
     </scenes>
     <resources>

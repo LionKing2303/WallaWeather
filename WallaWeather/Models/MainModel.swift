@@ -14,6 +14,7 @@ struct MainDataModel {
 
 extension MainDataModel {
     struct Forecast {
+        let cityId: String
         let cityName: String
         let forecast: String
     }

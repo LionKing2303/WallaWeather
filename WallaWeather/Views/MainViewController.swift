@@ -31,7 +31,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     @IBOutlet weak var layoutSwitch: UIButton!
     
     // MARK: -- Private variables
-    private var viewModel: MainViewModel = .init(repository: MainRepository.init())
+    private var viewModel: MainViewModel = .init(repository: ServiceMainRepository.init())
     private var cancellables: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
@@ -91,7 +91,11 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompactCityForecastCollectionViewCell.identifier, for: indexPath) as? CompactCityForecastCollectionViewCell
         }
     
-        cell?.set(forecast: viewModel.dataModel.forecasts[indexPath.item])
+        cell?.set(
+            cityId: viewModel.dataModel.forecasts[indexPath.item].cityId,
+            forecast: viewModel.dataModel.forecasts[indexPath.item]
+        )
+        
         return cell ?? UICollectionViewCell()
     }
 }
@@ -106,5 +110,19 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: (UIScreen.main.bounds.width-30)/3, height: 92.0)
         }
         return .zero
+    }
+}
+
+extension MainViewController {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: DetailsViewController.segue, sender: indexPath)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = sender as? IndexPath, let cell = self.collectionView.cellForItem(at: indexPath) as? ForecastCollectionViewCell {
+            if let vc = segue.destination as? DetailsViewController, let cityId = cell.getCityId() {
+                vc.set(cityId: cityId)
+            }
+        }
     }
 }
