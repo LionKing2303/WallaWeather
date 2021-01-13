@@ -24,7 +24,7 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: -- Private variables
-    private var cityId: String?
+    private var location: UserLocation?
     private var cancellables: Set<AnyCancellable> = []
 
     override func viewDidLoad() {
@@ -33,14 +33,15 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.estimatedRowHeight = 50.0
         tableView.register(UINib(nibName: FutureForecastTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: FutureForecastTableViewCell.identifier)
         
-        if let cityId = self.cityId {
-            self.viewModel = DetailsViewModel(cityId: cityId, repository: ServiceDetailsRepository.init())
-            self.bind()
+        if let location = self.location {
+            self.viewModel = DetailsViewModel(location: location, repository: ServiceDetailsRepository.init())
         }
+        
+        self.bind()
     }
     
-    func set(cityId: String) {
-        self.cityId = cityId
+    func set(location: UserLocation) {
+        self.location = location
     }
  
     func bind() {
@@ -53,13 +54,15 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             .store(in: &cancellables)
         
+        // Bind a publisher that will show the selected city name
         viewModel.cityName
             .assign(to: \.text, on: cityName)
             .store(in: &cancellables)
         
+        // Bind a publisher that will show the current temperature
         viewModel.currentTemperature
-        .assign(to: \.text, on: currentTemperature)
-        .store(in: &cancellables)
+            .assign(to: \.text, on: currentTemperature)
+            .store(in: &cancellables)
     }
 
     private func refreshUI() {

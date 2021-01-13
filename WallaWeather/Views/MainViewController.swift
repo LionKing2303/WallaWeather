@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine
+import CoreLocation
 
 enum Layout: String {
     case list
@@ -23,6 +24,17 @@ enum Layout: String {
     }
 }
 
+struct UserLocation {
+    enum LocationType {
+        case id
+        case location
+    }
+    
+    let type: LocationType
+    let cityId: String?
+    let location: CLLocation?
+}
+
 class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
     
     // MARK: -- Outlets
@@ -32,6 +44,14 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     // MARK: -- Private variables
     private var viewModel: MainViewModel = .init(repository: ServiceMainRepository.init())
+    private lazy var locationManager: CLLocationManager = {
+        var manager = CLLocationManager()
+        manager.delegate = self
+        manager.distanceFilter = 10
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        return manager
+    }()
+    private var currentLocation: CLLocation?
     private var cancellables: Set<AnyCancellable> = []
     
     override func viewDidLoad() {
@@ -39,6 +59,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         registerCells()
         bind()
         viewModel.fetchForecasts()
+        locationManager.requestWhenInUseAuthorization()
     }
     
     private func registerCells() {
@@ -120,9 +141,26 @@ extension MainViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = sender as? IndexPath, let cell = self.collectionView.cellForItem(at: indexPath) as? ForecastCollectionViewCell {
-            if let vc = segue.destination as? DetailsViewController, let cityId = cell.getCityId() {
-                vc.set(cityId: cityId)
+            if let detailsViewController = segue.destination as? DetailsViewController, let cityId = cell.getCityId() {
+                if cityId.isEmpty {
+                    detailsViewController.set(location: UserLocation(type: .location, cityId: nil, location: currentLocation))
+                } else {
+                    detailsViewController.set(location: UserLocation(type: .id, cityId: cityId, location: nil))
+                }
             }
         }
+    }
+}
+
+extension MainViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse || status == .authorizedAlways {
+            manager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.currentLocation = locations.last
+        manager.stopUpdatingLocation()
     }
 }

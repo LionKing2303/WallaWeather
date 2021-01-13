@@ -14,6 +14,7 @@ class APIClient {
         case invalidEndpoint
         case serverError
         case parsingError
+        case missingParameters
     }
     
     private let APP_ID = "7bd45e491e54e8bddc935e01cf8ffed3"
@@ -37,10 +38,16 @@ class APIClient {
         self.fetch(parameters: parameters,endpoint: .currentWeatherGroup, method: .GET, completion: completion)
     }
     
-    func fetchFiveDaysForecast(cityId: String, completion: @escaping (Result<DetailsResponseModel,APIError>)->Void) {
-        let parameters: [String:String] = [
-            "id": cityId
-        ]
+    func fetchFiveDaysForecast(location: UserLocation, completion: @escaping (Result<DetailsResponseModel,APIError>)->Void) {
+        var parameters: [String:String] = [:]
+        if location.type == .id, let cityId = location.cityId {
+            parameters.updateValue(cityId, forKey: "i")
+        } else if location.type == .location, let location = location.location {
+            parameters.updateValue("\(location.coordinate.latitude)", forKey: "lat")
+            parameters.updateValue("\(location.coordinate.longitude)", forKey: "lon")
+        } else {
+            completion(.failure(.missingParameters))
+        }
         self.fetch(parameters: parameters,endpoint: .forecastFiveDays, method: .GET, completion: completion)
     }
     

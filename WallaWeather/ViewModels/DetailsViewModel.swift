@@ -19,19 +19,21 @@ class DetailsViewModel {
     var currentTemperature = PassthroughSubject<String?,Never>()
     
     // MARK: -- Private variables
-    private var cityId: String?
     private var cancellables: Set<AnyCancellable> = []
 
-    init(cityId: String, repository: DetailsRepository) {
-        self.cityId = cityId
+    init(location: UserLocation, repository: DetailsRepository) {
         self.repository = repository
-        fetchFiveDaysForecast()
+        fetchFiveDaysForecast(for: location)
     }
     
-    func fetchFiveDaysForecast() {
-        if let cityId = self.cityId {
-            self.repository.fetchDetails(for: cityId)
-            .replaceError(with: DetailsResponseModel(city: DetailsResponseModel.City(name: "Error"), list: []))
+    func fetchFiveDaysForecast(for location: UserLocation) {
+        self.repository.fetchDetails(for: location)
+            .catch { error -> Just<DetailsResponseModel> in
+                if error == APIClient.APIError.missingParameters {
+                    return Just(DetailsResponseModel(city: DetailsResponseModel.City(name: "Please share location"), list: []))
+                }
+                return Just(DetailsResponseModel(city: DetailsResponseModel.City(name: "Error"), list: []))
+            }
             .map { responseModel -> DetailsModel in
                 responseModel.toDetailsModel()
             }
@@ -47,6 +49,5 @@ class DetailsViewModel {
                 self?.refresh.send()
             })
             .store(in: &cancellables)
-        }
     }
 }
