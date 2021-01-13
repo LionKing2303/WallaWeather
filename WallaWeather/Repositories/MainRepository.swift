@@ -26,7 +26,7 @@ class MockMainRepository: MainRepository {
             let forecasts = (1...10).map { index in
                 Double(index)
             }.map { index in
-                CurrentWeatherResponseModel.City(id: index, name: "City \(Int(index))", main: CurrentWeatherResponseModel.Main(temp: Double(15+index)))
+                CurrentWeatherResponseModel.City(id: index, name: "City \(Int(index))", main: CurrentWeatherResponseModel.Main(temp: Double(15+index)), weather: [])
             }
             promise(.success(CurrentWeatherResponseModel(list: forecasts)))
         }

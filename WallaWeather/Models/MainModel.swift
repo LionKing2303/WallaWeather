@@ -17,6 +17,7 @@ extension MainDataModel {
         let cityId: String
         let cityName: String
         let forecast: String
+        let iconName: String?
     }
 }
 
@@ -29,12 +30,19 @@ extension CurrentWeatherResponseModel {
         let id: Double?
         let name: String?
         let main: Main?
+        let weather: [Weather]
     }
 }
 
 extension CurrentWeatherResponseModel {
     struct Main: Codable {
         let temp: Double?
+    }
+}
+
+extension CurrentWeatherResponseModel {
+    struct Weather: Codable {
+        let icon: String?
     }
 }
 
@@ -64,9 +72,9 @@ extension CurrentWeatherResponseModel {
         var forecasts = self.list.filter({ (city) -> Bool in
             city.id != nil
         }).map { city -> MainDataModel.Forecast in
-            .init(cityId: String(format: "%.0f", city.id!), cityName: city.name ?? "", forecast: "\(city.main?.temp ?? 0.0)℃" )
+            .init(cityId: String(format: "%.0f", city.id!), cityName: city.name ?? "", forecast: "\(city.main?.temp ?? 0.0)℃", iconName: city.weather.first?.icon)
         }
-        forecasts.insert(MainDataModel.Forecast(cityId: "", cityName: "Current Location", forecast: ""), at: 0)
+        forecasts.insert(MainDataModel.Forecast(cityId: "", cityName: "Current Location", forecast: "", iconName: nil), at: 0)
         return MainDataModel(forecasts: forecasts)
     }
 }

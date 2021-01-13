@@ -25,8 +25,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud.sun.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Eet-zq-rJF">
+                        <rect key="frame" x="59.5" y="62.5" width="27.5" height="19"/>
+                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 - 20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agb-oq-Q1X">
-                        <rect key="frame" x="20" y="50" width="106" height="34"/>
+                        <rect key="frame" x="20" y="62" width="106" height="34"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="34" id="qDw-cc-kuv"/>
                         </constraints>
@@ -39,9 +43,10 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Agb-oq-Q1X" secondAttribute="bottom" priority="999" constant="8" id="6Ck-Vh-weu"/>
                 <constraint firstItem="Zim-zS-UjF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="JE6-1J-zId"/>
+                <constraint firstItem="Eet-zq-rJF" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="KU6-X0-QSw"/>
                 <constraint firstItem="Agb-oq-Q1X" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="VW8-a1-0Ia"/>
+                <constraint firstItem="Eet-zq-rJF" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="ViD-8V-uEn"/>
                 <constraint firstItem="Zim-zS-UjF" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="Zob-Fx-1ao"/>
-                <constraint firstItem="Agb-oq-Q1X" firstAttribute="top" secondItem="Zim-zS-UjF" secondAttribute="bottom" constant="8" id="u2X-5f-af9"/>
                 <constraint firstAttribute="trailing" secondItem="Zim-zS-UjF" secondAttribute="trailing" constant="20" id="yFp-AL-SBO"/>
                 <constraint firstAttribute="trailing" secondItem="Agb-oq-Q1X" secondAttribute="trailing" constant="20" id="yIn-hS-PZi"/>
             </constraints>
@@ -50,8 +55,12 @@
             <connections>
                 <outlet property="cityName" destination="Zim-zS-UjF" id="HcZ-j9-88T"/>
                 <outlet property="forecast" destination="Agb-oq-Q1X" id="2DY-I2-p2n"/>
+                <outlet property="icon" destination="Eet-zq-rJF" id="azr-vp-nUT"/>
             </connections>
             <point key="canvasLocation" x="-40.579710144927539" y="171.42857142857142"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="cloud.sun.fill" catalog="system" width="128" height="88"/>
+    </resources>
 </document>

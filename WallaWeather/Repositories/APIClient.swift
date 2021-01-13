@@ -41,7 +41,7 @@ class APIClient {
     func fetchFiveDaysForecast(location: UserLocation, completion: @escaping (Result<DetailsResponseModel,APIError>)->Void) {
         var parameters: [String:String] = [:]
         if location.type == .id, let cityId = location.cityId {
-            parameters.updateValue(cityId, forKey: "i")
+            parameters.updateValue(cityId, forKey: "id")
         } else if location.type == .location, let location = location.location {
             parameters.updateValue("\(location.coordinate.latitude)", forKey: "lat")
             parameters.updateValue("\(location.coordinate.longitude)", forKey: "lon")

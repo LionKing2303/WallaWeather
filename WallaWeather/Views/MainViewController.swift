@@ -126,9 +126,9 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     {
         // Set collection view cell custom size for each layout
         if viewModel.getLayout() == .grid {
-            return CGSize(width: UIScreen.main.bounds.width, height: 44.0)
+            return CGSize(width: UIScreen.main.bounds.width, height: 60.0)
         } else if viewModel.getLayout() == .list {
-            return CGSize(width: (UIScreen.main.bounds.width-30)/3, height: 92.0)
+            return CGSize(width: (UIScreen.main.bounds.width-30)/3, height: 150.0)
         }
         return .zero
     }
