@@ -10,11 +10,11 @@ import Foundation
 import Combine
 
 protocol DetailsRepository {
-    func fetchDetails(for cityId: String) -> Future<DetailsResponseModel?,APIClient.APIError>
+    func fetchDetails(for cityId: String) -> Future<DetailsResponseModel,APIClient.APIError>
 }
 
 class ServiceDetailsRepository: DetailsRepository {
-    func fetchDetails(for cityId: String) -> Future<DetailsResponseModel?,APIClient.APIError> {
+    func fetchDetails(for cityId: String) -> Future<DetailsResponseModel,APIClient.APIError> {
         return Future { promise in
             APIClient.shared.fetchFiveDaysForecast(cityId: cityId) { result in
                 switch result {

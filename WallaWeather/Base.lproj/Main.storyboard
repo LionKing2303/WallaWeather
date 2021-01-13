@@ -90,22 +90,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="toi-Nd-WBd">
-                                <rect key="frame" x="134.5" y="20" width="145" height="33.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="28"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aCA-ve-0J7">
+                                <rect key="frame" x="135" y="20" width="144.5" height="71.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="toi-Nd-WBd">
+                                        <rect key="frame" x="0.0" y="0.0" width="144.5" height="33.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="28"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="211-sC-dj5">
+                                        <rect key="frame" x="0.0" y="41.5" width="144.5" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IFc-jR-2uC">
+                                <rect key="frame" x="0.0" y="111.5" width="414" height="696.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="U1G-6o-Ooy" id="h4q-iL-ABa"/>
+                                    <outlet property="delegate" destination="U1G-6o-Ooy" id="yHD-ob-N0A"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="toi-Nd-WBd" firstAttribute="top" secondItem="ocA-MT-Vjg" secondAttribute="top" constant="20" id="HNf-ti-iFk"/>
-                            <constraint firstItem="toi-Nd-WBd" firstAttribute="centerX" secondItem="ocA-MT-Vjg" secondAttribute="centerX" id="V0F-Hd-nnf"/>
+                            <constraint firstItem="IFc-jR-2uC" firstAttribute="leading" secondItem="ocA-MT-Vjg" secondAttribute="leading" id="648-MR-til"/>
+                            <constraint firstItem="aCA-ve-0J7" firstAttribute="centerX" secondItem="ocA-MT-Vjg" secondAttribute="centerX" id="76X-aB-UUv"/>
+                            <constraint firstItem="aCA-ve-0J7" firstAttribute="top" secondItem="ocA-MT-Vjg" secondAttribute="top" constant="20" id="GBj-Nd-YbZ"/>
+                            <constraint firstItem="ocA-MT-Vjg" firstAttribute="trailing" secondItem="IFc-jR-2uC" secondAttribute="trailing" id="GFt-fk-Gsi"/>
+                            <constraint firstItem="ocA-MT-Vjg" firstAttribute="bottom" secondItem="IFc-jR-2uC" secondAttribute="bottom" id="Qus-vi-P6f"/>
+                            <constraint firstItem="IFc-jR-2uC" firstAttribute="top" secondItem="aCA-ve-0J7" secondAttribute="bottom" constant="20" id="pn7-Yw-eHb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ocA-MT-Vjg"/>
                     </view>
                     <connections>
                         <outlet property="cityName" destination="toi-Nd-WBd" id="Gkn-fm-YcW"/>
+                        <outlet property="currentTemperature" destination="211-sC-dj5" id="6k4-UI-9pC"/>
+                        <outlet property="tableView" destination="IFc-jR-2uC" id="oML-Jv-LPJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jwo-bf-RaF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

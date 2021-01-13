@@ -91,7 +91,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: CompactCityForecastCollectionViewCell.identifier, for: indexPath) as? CompactCityForecastCollectionViewCell
         }
     
-        cell?.set(
+        cell?.configure(
             cityId: viewModel.dataModel.forecasts[indexPath.item].cityId,
             forecast: viewModel.dataModel.forecasts[indexPath.item]
         )

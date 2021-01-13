@@ -10,6 +10,14 @@ import Foundation
 
 struct DetailsModel {
     let cityName: String
+    let forecasts: [Forecast]
+}
+
+extension DetailsModel {
+    struct Forecast {
+        let date: String
+        let temperature: String
+    }
 }
 
 struct DetailsResponseModel: Codable {

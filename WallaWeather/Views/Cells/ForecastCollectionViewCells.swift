@@ -17,7 +17,7 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     // MARK: -- Private variables
     private var cityId: String?
     
-    func set(cityId: String, forecast: MainDataModel.Forecast) {
+    func configure(cityId: String, forecast: MainDataModel.Forecast) {
         self.cityId = cityId
         self.cityName.text = forecast.cityName
         self.forecast.text = forecast.forecast

@@ -57,10 +57,7 @@ class MainViewModel {
     private func displayLastUpdate() {
         // Display last update date if available
         if let lastUpdateDate = CurrentWeatherResponseModel.cachedDate() {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            formatter.timeStyle = .short
-            self.lastUpdate.send("Last update: \(formatter.string(from: lastUpdateDate))")
+            self.lastUpdate.send("Last update: \(lastUpdateDate.formattedDate())")
         } else {
             self.lastUpdate.send("Last update: -")
         }
