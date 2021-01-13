@@ -65,6 +65,7 @@ class MainViewModel {
             asset = Layout.list.asset()
         }
         layoutAsset.send(asset)
+        refresh.send()
     }
     
     func getLayout() -> Layout {

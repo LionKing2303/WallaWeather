@@ -91,12 +91,13 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
     private func refreshUI() {
-        collectionView.reloadData()
+        self.collectionView.performBatchUpdates({
+            self.collectionView.reloadSections(IndexSet(integer: 0))
+        }, completion: nil)
     }
     
     @IBAction func onLayoutSwitch(_ sender: Any) {        
         viewModel.toggleLayout()
-        refreshUI()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

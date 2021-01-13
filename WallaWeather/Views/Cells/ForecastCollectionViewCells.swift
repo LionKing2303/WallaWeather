@@ -31,6 +31,8 @@ class ForecastCollectionViewCell: UICollectionViewCell {
                 .receive(on: DispatchQueue.main)
                 .assign(to: \.image, on: self.icon)
                 .store(in: &cancellables)
+        } else {
+            self.icon.image = nil
         }
     }
     
