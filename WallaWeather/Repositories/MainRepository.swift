@@ -22,7 +22,7 @@ protocol MainRepository {
 
 class MockMainRepository: MainRepository {
     func fetchForecasts() -> Future<CurrentWeatherResponseModel?,APIClient.APIError> {
-        return Future { promise in
+        Future { promise in
             let forecasts = (1...10).map { index in
                 Double(index)
             }.map { index in
@@ -36,7 +36,7 @@ class MockMainRepository: MainRepository {
 class ServiceMainRepository: MainRepository {
     
     func fetchForecasts() -> Future<CurrentWeatherResponseModel?,APIClient.APIError> {
-        return Future { promise in
+        Future { promise in
             let cityIdentifiers: [CityIdentifier] = [
                 .Jerusalem,
                 .TelAviv,

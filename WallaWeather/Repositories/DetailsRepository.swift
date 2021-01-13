@@ -15,7 +15,7 @@ protocol DetailsRepository {
 
 class ServiceDetailsRepository: DetailsRepository {
     func fetchDetails(for cityId: String) -> Future<DetailsResponseModel,APIClient.APIError> {
-        return Future { promise in
+        Future { promise in
             APIClient.shared.fetchFiveDaysForecast(cityId: cityId) { result in
                 switch result {
                 case .success(let responseModel):
