@@ -33,25 +33,15 @@ class MainViewModel {
             .replaceError(with: CurrentWeatherResponseModel.cached())
             .replaceNil(with: CurrentWeatherResponseModel(list: []))
             .map { responseModel in
-                self.format(responseModel: responseModel)
+                responseModel.toMainDataModel()
             }
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { (dataModel) in
-                self.dataModel = dataModel
-                self.refresh.send()
-                self.displayLastUpdate()
+            .sink(receiveValue: { [weak self] dataModel in
+                self?.dataModel = dataModel
+                self?.refresh.send()
+                self?.displayLastUpdate()
             })
             .store(in: &cancellables)
-    }
-    
-    private func format(responseModel:CurrentWeatherResponseModel) -> MainDataModel {
-        // Convert response into data for display
-        let forecasts = responseModel.list.filter({ (city) -> Bool in
-            city.id != nil
-        }).map { city -> MainDataModel.Forecast in
-            .init(cityId: String(format: "%.0f", city.id!), cityName: city.name ?? "", forecast: "\(city.main?.temp ?? 0.0)℃" )
-        }
-        return MainDataModel(forecasts: forecasts)
     }
     
     private func displayLastUpdate() {

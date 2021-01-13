@@ -58,4 +58,14 @@ extension CurrentWeatherResponseModel {
             CurrentWeatherResponseModel.cacheDate = Date()
         }
     }
+    
+    func toMainDataModel() -> MainDataModel {
+        // Convert response into data for display
+        let forecasts = self.list.filter({ (city) -> Bool in
+            city.id != nil
+        }).map { city -> MainDataModel.Forecast in
+            .init(cityId: String(format: "%.0f", city.id!), cityName: city.name ?? "", forecast: "\(city.main?.temp ?? 0.0)℃" )
+        }
+        return MainDataModel(forecasts: forecasts)
+    }
 }

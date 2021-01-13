@@ -43,3 +43,18 @@ extension DetailsResponseModel {
         let temp: Double?
     }
 }
+
+extension DetailsResponseModel {
+    func toDetailsModel() -> DetailsModel {
+        var cityName: String = ""
+        var forecasts: [DetailsModel.Forecast] = []
+        cityName = self.city?.name ?? ""
+        forecasts = self.list.compactMap { forecast -> DetailsModel.Forecast? in
+            if let dt = forecast.dt, let temperature = forecast.main?.temp {
+                return DetailsModel.Forecast(date: Date(timeIntervalSince1970: dt).formattedDate(), temperature: "\(temperature)℃")
+            }
+            return nil
+        }
+        return DetailsModel(cityName: cityName, forecasts: forecasts)
+    }
+}

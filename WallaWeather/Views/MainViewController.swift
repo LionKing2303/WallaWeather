@@ -50,16 +50,16 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     private func bind() {
         // Bind a publisher that will tell us to refresh the collection view
          viewModel.refresh
-             .sink { _ in
-                self.refreshUI()
+             .sink { [weak self] in
+                self?.refreshUI()
              }
              .store(in: &cancellables)
         
         // Bind a string publisher that will tell us what asset to use on the layout switch button
         viewModel.layoutAsset
             .replaceNil(with: "")
-            .sink { (asset) in
-                self.layoutSwitch.setImage(UIImage(systemName: asset), for: .normal)
+            .sink { [weak self] asset in
+                self?.layoutSwitch.setImage(UIImage(systemName: asset), for: .normal)
             }
             .store(in: &cancellables)
         

@@ -48,8 +48,8 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         // Bind a publisher that will tell us to refresh the collection view
         viewModel.refresh
-            .sink { _ in
-               self.refreshUI()
+            .sink { [weak self] in
+               self?.refreshUI()
             }
             .store(in: &cancellables)
         
