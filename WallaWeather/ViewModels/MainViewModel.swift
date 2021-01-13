@@ -12,7 +12,7 @@ import Combine
 class MainViewModel {
     var dataModel: MainDataModel = MainDataModel(forecasts: [])
     var repository: MainRepository
-    @UserDefaultsBacked<String>(key: "walla.weather.layout", defaultValue: Layout.list.rawValue)
+    @UserDefaultsBacked<String>(key: "walla.weather.layout", defaultValue: Layout.grid.rawValue)
        var layout
     
     // MARK: -- Publishers
@@ -31,7 +31,7 @@ class MainViewModel {
     func fetchForecasts() {
         self.repository.fetchForecasts()
             .replaceError(with: CurrentWeatherResponseModel.cached())
-            .replaceNil(with: CurrentWeatherResponseModel(list: []))
+            .replaceNil(with: CurrentWeatherResponseModel(list: [CurrentWeatherResponseModel.City(id: 0, name: "Loading data failed", main: nil, weather: [])]))
             .map { responseModel in
                 responseModel.toMainDataModel()
             }

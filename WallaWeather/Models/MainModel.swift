@@ -72,7 +72,10 @@ extension CurrentWeatherResponseModel {
         var forecasts = self.list.filter({ (city) -> Bool in
             city.id != nil
         }).map { city -> MainDataModel.Forecast in
-            .init(cityId: String(format: "%.0f", city.id!), cityName: city.name ?? "", forecast: "\(city.main?.temp ?? 0.0)℃", iconName: city.weather.first?.icon)
+            if let temperature = city.main?.temp {
+                return MainDataModel.Forecast(cityId: String(format: "%.0f", city.id!), cityName: city.name ?? "", forecast: "\(temperature)℃", iconName: city.weather.first?.icon)
+            }
+            return MainDataModel.Forecast(cityId: String(format: "%.0f", city.id!), cityName: city.name ?? "", forecast: "", iconName: city.weather.first?.icon)
         }
         forecasts.insert(MainDataModel.Forecast(cityId: "", cityName: "Current Location", forecast: "", iconName: nil), at: 0)
         return MainDataModel(forecasts: forecasts)

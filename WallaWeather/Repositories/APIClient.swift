@@ -17,10 +17,6 @@ class APIClient {
         case missingParameters
     }
     
-    private let APP_ID = "7bd45e491e54e8bddc935e01cf8ffed3"
-    private let UNITS = "metric"
-    private let baseURL = "https://api.openweathermap.org"
-    
     private enum Endpoint: String {
         case currentWeatherGroup = "/data/2.5/group"
         case forecastFiveDays = "/data/2.5/forecast"
@@ -28,7 +24,8 @@ class APIClient {
     private enum Method: String {
         case GET
     }
-    
+    private let UNITS = "metric"
+
     static let shared: APIClient = APIClient()
     
     func fetchCurrentWeather(cityIdentifiers: [CityIdentifier], completion: @escaping (Result<CurrentWeatherResponseModel,APIError>)->Void) {
@@ -54,8 +51,7 @@ class APIClient {
     private func fetch<T:Codable>(parameters: [String:String], endpoint: Endpoint, method: Method, completion: @escaping (Result<T,APIError>)->Void) {
         
         // Build URL path
-        let path = "\(baseURL)\(endpoint.rawValue)"
-        guard let baseUrl = URL(string: path) else {
+        guard let baseURL = Configuration.value(for: .API_BASE_URL), let baseUrl = URL(string: "https://\(baseURL)\(endpoint.rawValue)") else {
             completion(.failure(.invalidEndpoint))
             return
         }
@@ -66,7 +62,7 @@ class APIClient {
             URLQueryItem(name: key, value: value)
         }
         // Append query base parameters
-        components?.queryItems?.append(URLQueryItem(name: "appid", value: APP_ID))
+        components?.queryItems?.append(URLQueryItem(name: "appid", value: Configuration.value(for: .API_KEY)))
         components?.queryItems?.append(URLQueryItem(name: "units", value: UNITS))
         guard let url = components?.url else {
             completion(.failure(.invalidEndpoint))
