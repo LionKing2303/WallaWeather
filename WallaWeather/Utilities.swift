@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Used for storing data in the user defaults
 @propertyWrapper struct UserDefaultsBacked<Value> {
     let key: String
     let defaultValue: Value
@@ -24,11 +25,12 @@ import Foundation
     }
 }
 
+// Used for date formatting
 extension Date {
     func formattedDate() -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
-        return "\(formatter.string(from: self))"
+        return formatter.string(from: self)
     }
 }

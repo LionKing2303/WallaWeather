@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreLocation
 
+// NOTE: Used to hold the layout switch button state and get the relevant asset
 enum Layout: String {
     case list
     case grid
@@ -24,6 +25,7 @@ enum Layout: String {
     }
 }
 
+// NOTE: Used to get details about a city id or a specific location
 struct UserLocation {
     enum LocationType {
         case id
@@ -136,6 +138,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension MainViewController {
+    // Handle the segue to the city screen (details screen)
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: DetailsViewController.segue, sender: indexPath)
     }
@@ -154,6 +157,7 @@ extension MainViewController {
 }
 
 extension MainViewController: CLLocationManagerDelegate {
+    // Handle location updates
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             manager.startUpdatingLocation()

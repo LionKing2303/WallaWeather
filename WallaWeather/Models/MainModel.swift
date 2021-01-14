@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: Main Screen Data Model
 struct MainDataModel {
     let forecasts: [Forecast]
 }
@@ -21,6 +22,7 @@ extension MainDataModel {
     }
 }
 
+// MARK: Main Screen Server Response Model
 struct CurrentWeatherResponseModel: Codable {
     let list: [City]
 }
@@ -47,6 +49,7 @@ extension CurrentWeatherResponseModel {
 }
 
 extension CurrentWeatherResponseModel {
+    // NOTE: This extension is used for caching the model and converting it to the main screen data model
     @UserDefaultsBacked<Data?>(key: "walla.weather.cache", defaultValue: nil) private static var cache
     @UserDefaultsBacked<Date?>(key: "walla.weather.cache.date", defaultValue: nil) private static var cacheDate
 

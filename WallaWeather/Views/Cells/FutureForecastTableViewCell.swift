@@ -18,11 +18,8 @@ class FutureForecastTableViewCell: UITableViewCell {
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var forecast: UILabel!
     
-    
     func configure(date: String, forecast: String) {
         self.date.text = date
         self.forecast.text = forecast
     }
- 
-    
 }

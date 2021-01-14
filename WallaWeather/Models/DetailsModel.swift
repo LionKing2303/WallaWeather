@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: City Screen Data Model
 struct DetailsModel {
     let cityName: String
     let forecasts: [Forecast]
@@ -20,6 +21,7 @@ extension DetailsModel {
     }
 }
 
+// MARK: City Screen Server Response Model
 struct DetailsResponseModel: Codable {
     let city: City?
     let list: [Forecast]
@@ -45,6 +47,7 @@ extension DetailsResponseModel {
 }
 
 extension DetailsResponseModel {
+    // NOTE: This extension is used for converting it to the city screen data model
     func toDetailsModel() -> DetailsModel {
         var cityName: String = ""
         var forecasts: [DetailsModel.Forecast] = []

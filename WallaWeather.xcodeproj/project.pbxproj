@@ -29,7 +29,7 @@
 		ACD89DE025AB705700E61822 /* CompactCityForecastCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD89DDE25AB705700E61822 /* CompactCityForecastCollectionViewCell.xib */; };
 		ACFFB41C25AECB2600C5415F /* FutureForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFFB41A25AECB2600C5415F /* FutureForecastTableViewCell.swift */; };
 		ACFFB41D25AECB2600C5415F /* FutureForecastTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACFFB41B25AECB2600C5415F /* FutureForecastTableViewCell.xib */; };
-		ACFFB42225AF959C00C5415F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFFB42125AF959C00C5415F /* Environment.swift */; };
+		ACFFB42225AF959C00C5415F /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFFB42125AF959C00C5415F /* Configuration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +80,7 @@
 		ACFFB41B25AECB2600C5415F /* FutureForecastTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FutureForecastTableViewCell.xib; sourceTree = "<group>"; };
 		ACFFB41F25AF953C00C5415F /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		ACFFB42025AF954C00C5415F /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		ACFFB42125AF959C00C5415F /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		ACFFB42125AF959C00C5415F /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,7 +220,7 @@
 			children = (
 				ACFFB41F25AF953C00C5415F /* Debug.xcconfig */,
 				ACFFB42025AF954C00C5415F /* Release.xcconfig */,
-				ACFFB42125AF959C00C5415F /* Environment.swift */,
+				ACFFB42125AF959C00C5415F /* Configuration.swift */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -363,7 +363,7 @@
 				ACD89DAC25AB6C8C00E61822 /* MainViewController.swift in Sources */,
 				ACD89DA825AB6C8C00E61822 /* AppDelegate.swift in Sources */,
 				AC760E9125ACA01900866619 /* APIClient.swift in Sources */,
-				ACFFB42225AF959C00C5415F /* Environment.swift in Sources */,
+				ACFFB42225AF959C00C5415F /* Configuration.swift in Sources */,
 				AC7FD73125AB7F9600C35D2A /* MainModel.swift in Sources */,
 				ACD89DDB25AB704400E61822 /* ForecastCollectionViewCells.swift in Sources */,
 				AC760E9325ACAFFF00866619 /* Utilities.swift in Sources */,

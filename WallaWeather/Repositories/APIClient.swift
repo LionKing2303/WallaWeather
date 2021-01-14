@@ -10,6 +10,7 @@ import Foundation
 
 class APIClient {
     
+    // Define the possible server errors
     enum APIError: Error {
         case invalidEndpoint
         case serverError
@@ -17,6 +18,7 @@ class APIClient {
         case missingParameters
     }
     
+    // Define the endpoints used
     private enum Endpoint: String {
         case currentWeatherGroup = "/data/2.5/group"
         case forecastFiveDays = "/data/2.5/forecast"
@@ -24,30 +26,45 @@ class APIClient {
     private enum Method: String {
         case GET
     }
-    private let UNITS = "metric"
-
+    // Define the keys used on server reqeusts
+    private enum Keys: String {
+        case appId = "appid" // Base parameter on all server requests
+        case units = "units" // Base parameter on all server requests
+        case id = "id"
+        case latitude = "lat"
+        case longitude = "lon"
+    }
+    // Define hard-coded key values on server requests
+    private enum Value: String {
+        case metric = "metric"
+    }
     static let shared: APIClient = APIClient()
     
+    // Make service request for the main screen
     func fetchCurrentWeather(cityIdentifiers: [CityIdentifier], completion: @escaping (Result<CurrentWeatherResponseModel,APIError>)->Void) {
         let parameters: [String:String] = [
-            "id": cityIdentifiers.map { $0.rawValue }.joined(separator: ",")
+            Keys.id.rawValue: cityIdentifiers.map { $0.rawValue }.joined(separator: ",")
         ]
         self.fetch(parameters: parameters,endpoint: .currentWeatherGroup, method: .GET, completion: completion)
     }
     
+    // Make service request for the city screen
     func fetchFiveDaysForecast(location: UserLocation, completion: @escaping (Result<DetailsResponseModel,APIError>)->Void) {
         var parameters: [String:String] = [:]
+        // Set the relevant parameters according to the location type
         if location.type == .id, let cityId = location.cityId {
-            parameters.updateValue(cityId, forKey: "id")
+            parameters.updateValue(cityId, forKey: Keys.id.rawValue)
         } else if location.type == .location, let location = location.location {
-            parameters.updateValue("\(location.coordinate.latitude)", forKey: "lat")
-            parameters.updateValue("\(location.coordinate.longitude)", forKey: "lon")
+            parameters.updateValue("\(location.coordinate.latitude)", forKey: Keys.latitude.rawValue)
+            parameters.updateValue("\(location.coordinate.longitude)", forKey: Keys.longitude.rawValue)
         } else {
+            // If we don't have the location parameters then we send a missing parameters error
             completion(.failure(.missingParameters))
         }
         self.fetch(parameters: parameters,endpoint: .forecastFiveDays, method: .GET, completion: completion)
     }
     
+    // Make a service request on a selected endpoint, method and parameters
     private func fetch<T:Codable>(parameters: [String:String], endpoint: Endpoint, method: Method, completion: @escaping (Result<T,APIError>)->Void) {
         
         // Build URL path
@@ -62,8 +79,8 @@ class APIClient {
             URLQueryItem(name: key, value: value)
         }
         // Append query base parameters
-        components?.queryItems?.append(URLQueryItem(name: "appid", value: Configuration.value(for: .API_KEY)))
-        components?.queryItems?.append(URLQueryItem(name: "units", value: UNITS))
+        components?.queryItems?.append(URLQueryItem(name: Keys.appId.rawValue, value: Configuration.value(for: .API_KEY)))
+        components?.queryItems?.append(URLQueryItem(name: Keys.units.rawValue, value: Value.metric.rawValue))
         guard let url = components?.url else {
             completion(.failure(.invalidEndpoint))
             return

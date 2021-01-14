@@ -23,12 +23,13 @@ class DetailsViewModel {
 
     init(location: UserLocation, repository: DetailsRepository) {
         self.repository = repository
-        fetchFiveDaysForecast(for: location)
+        self.fetchFiveDaysForecast(for: location)
     }
     
     func fetchFiveDaysForecast(for location: UserLocation) {
         self.repository.fetchDetails(for: location)
             .catch { error -> Just<DetailsResponseModel> in
+                // Check if we encountered a missing parameters error which tells us there was a problem sending the user's location, otherwise show a generic error
                 if error == APIClient.APIError.missingParameters {
                     return Just(DetailsResponseModel(city: DetailsResponseModel.City(name: "Please share location"), list: []))
                 }
@@ -41,11 +42,7 @@ class DetailsViewModel {
             .sink(receiveValue: { [weak self] dataModel in
                 self?.dataModel = dataModel
                 self?.cityName.send(dataModel.cityName)
-                if let firstForecast = dataModel.forecasts.first {
-                    self?.currentTemperature.send(firstForecast.temperature)
-                } else {
-                    self?.currentTemperature.send("")
-                }
+                self?.currentTemperature.send(dataModel.forecasts.first?.temperature ?? "")
                 self?.refresh.send()
             })
             .store(in: &cancellables)

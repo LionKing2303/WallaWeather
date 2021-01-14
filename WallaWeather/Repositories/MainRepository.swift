@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 
+// Configure the default cities that we want to fetch data for by id.
 enum CityIdentifier: String {
     case Jerusalem = "281184"
     case TelAviv = "293397"
@@ -21,6 +22,7 @@ protocol MainRepository {
 }
 
 class MockMainRepository: MainRepository {
+    // Mock the main screen data
     func fetchForecasts() -> Future<CurrentWeatherResponseModel?,APIClient.APIError> {
         Future { promise in
             let forecasts = (1...10).map { index in
@@ -34,7 +36,7 @@ class MockMainRepository: MainRepository {
 }
 
 class ServiceMainRepository: MainRepository {
-    
+    // Fetch the main screen data from server
     func fetchForecasts() -> Future<CurrentWeatherResponseModel?,APIClient.APIError> {
         Future { promise in
             let cityIdentifiers: [CityIdentifier] = [
@@ -46,7 +48,7 @@ class ServiceMainRepository: MainRepository {
             APIClient.shared.fetchCurrentWeather(cityIdentifiers: cityIdentifiers) { (result) in
                 switch result {
                 case .success(let responseModel):
-                    responseModel.doCache()
+                    responseModel.doCache() // Perform caching
                     promise(.success(responseModel))
                 case .failure(let error):
                     promise(.failure(error))

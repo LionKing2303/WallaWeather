@@ -30,8 +30,8 @@ class MainViewModel {
     
     func fetchForecasts() {
         self.repository.fetchForecasts()
-            .replaceError(with: CurrentWeatherResponseModel.cached())
-            .replaceNil(with: CurrentWeatherResponseModel(list: [CurrentWeatherResponseModel.City(id: 0, name: "Loading data failed", main: nil, weather: [])]))
+            .replaceError(with: CurrentWeatherResponseModel.cached()) // Try using cache if the service failed
+            .replaceNil(with: CurrentWeatherResponseModel(list: [CurrentWeatherResponseModel.City(id: 0, name: "Loading data failed", main: nil, weather: [])])) // Show error if the service failed and there is no cache
             .map { responseModel in
                 responseModel.toMainDataModel()
             }
@@ -54,6 +54,7 @@ class MainViewModel {
     }
     
     func toggleLayout() {
+        // Switch the main screen layout and update the UI
         guard let layout = Layout(rawValue: layout) else { return }
         var asset: String?
         if layout == .list {
@@ -69,6 +70,6 @@ class MainViewModel {
     }
     
     func getLayout() -> Layout {
-        return Layout(rawValue: self.layout) ?? .list
+        return Layout(rawValue: self.layout) ?? .grid
     }
 }

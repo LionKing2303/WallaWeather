@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DetailsViewController: UIViewController {
     
     static var segue: String {
         "detailsSegue"
@@ -68,7 +68,9 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
     private func refreshUI() {
         tableView.reloadData()
     }
-    
+}
+
+extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: -- Table view delegate and data source methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -84,6 +86,4 @@ class DetailsViewController: UIViewController, UITableViewDelegate, UITableViewD
         )
         return cell
     }
-    
-
 }

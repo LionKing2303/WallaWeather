@@ -14,6 +14,7 @@ protocol DetailsRepository {
 }
 
 class ServiceDetailsRepository: DetailsRepository {
+    // Fetch the city screen details from server
     func fetchDetails(for location: UserLocation) -> Future<DetailsResponseModel,APIClient.APIError> {
         Future { promise in
             APIClient.shared.fetchFiveDaysForecast(location: location) { result in

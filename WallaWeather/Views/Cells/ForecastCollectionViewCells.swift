@@ -24,7 +24,10 @@ class ForecastCollectionViewCell: UICollectionViewCell {
         self.cityId = cityId
         self.cityName.text = forecast.cityName
         self.forecast.text = forecast.forecast
-        if let iconName = forecast.iconName, let url = URL(string: "http://openweathermap.org/img/wn/\(iconName)@2x.png") {
+        if let iconName = forecast.iconName,
+           let baseIconsURL = Configuration.value(for: .API_BASE_ICONS_URL),
+           let url = URL(string: "http://\(baseIconsURL)/img/wn/\(iconName)@2x.png") {
+            // Fetch the icon from server and set it on the uiimage
             URLSession.shared.dataTaskPublisher(for: url)
                 .map { UIImage(data: $0.data) }
                 .replaceError(with: nil)
