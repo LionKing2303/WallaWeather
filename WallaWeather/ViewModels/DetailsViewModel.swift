@@ -35,9 +35,7 @@ class DetailsViewModel {
                 }
                 return Just(DetailsResponseModel(city: DetailsResponseModel.City(name: "Error"), list: []))
             }
-            .map { responseModel -> DetailsModel in
-                responseModel.toDetailsModel()
-            }
+            .map(\.toDetailsModel)
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] dataModel in
                 self?.dataModel = dataModel

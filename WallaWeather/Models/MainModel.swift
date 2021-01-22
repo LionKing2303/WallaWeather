@@ -25,6 +25,21 @@ extension MainDataModel {
 // MARK: Main Screen Server Response Model
 struct CurrentWeatherResponseModel: Codable {
     let list: [City]
+    
+    // NOTE: This computed variable is used for converting to the main screen data model
+    var toMainDataModel: MainDataModel {
+        // Convert response into data for display
+        var forecasts = self.list.filter({ (city) -> Bool in
+            city.id != nil
+        }).map { city -> MainDataModel.Forecast in
+            if let temperature = city.main?.temp {
+                return MainDataModel.Forecast(cityId: String(format: "%.0f", city.id!), cityName: city.name ?? "", forecast: "\(temperature)℃", iconName: city.weather.first?.icon)
+            }
+            return MainDataModel.Forecast(cityId: String(format: "%.0f", city.id!), cityName: city.name ?? "", forecast: "", iconName: city.weather.first?.icon)
+        }
+        forecasts.insert(MainDataModel.Forecast(cityId: "", cityName: "Current Location", forecast: "", iconName: nil), at: 0)
+        return MainDataModel(forecasts: forecasts)
+    }
 }
 
 extension CurrentWeatherResponseModel {
@@ -49,7 +64,7 @@ extension CurrentWeatherResponseModel {
 }
 
 extension CurrentWeatherResponseModel {
-    // NOTE: This extension is used for caching the model and converting it to the main screen data model
+    // NOTE: This extension is used for caching the model
     @UserDefaultsBacked<Data?>(key: "walla.weather.cache", defaultValue: nil) private static var cache
     @UserDefaultsBacked<Date?>(key: "walla.weather.cache.date", defaultValue: nil) private static var cacheDate
 
@@ -68,19 +83,5 @@ extension CurrentWeatherResponseModel {
             CurrentWeatherResponseModel.cache = data
             CurrentWeatherResponseModel.cacheDate = Date()
         }
-    }
-    
-    func toMainDataModel() -> MainDataModel {
-        // Convert response into data for display
-        var forecasts = self.list.filter({ (city) -> Bool in
-            city.id != nil
-        }).map { city -> MainDataModel.Forecast in
-            if let temperature = city.main?.temp {
-                return MainDataModel.Forecast(cityId: String(format: "%.0f", city.id!), cityName: city.name ?? "", forecast: "\(temperature)℃", iconName: city.weather.first?.icon)
-            }
-            return MainDataModel.Forecast(cityId: String(format: "%.0f", city.id!), cityName: city.name ?? "", forecast: "", iconName: city.weather.first?.icon)
-        }
-        forecasts.insert(MainDataModel.Forecast(cityId: "", cityName: "Current Location", forecast: "", iconName: nil), at: 0)
-        return MainDataModel(forecasts: forecasts)
     }
 }

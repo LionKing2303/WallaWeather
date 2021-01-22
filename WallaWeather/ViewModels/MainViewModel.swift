@@ -32,9 +32,7 @@ class MainViewModel {
         self.repository.fetchForecasts()
             .replaceError(with: CurrentWeatherResponseModel.cached()) // Try using cache if the service failed
             .replaceNil(with: CurrentWeatherResponseModel(list: [CurrentWeatherResponseModel.City(id: 0, name: "Loading data failed", main: nil, weather: [])])) // Show error if the service failed and there is no cache
-            .map { responseModel in
-                responseModel.toMainDataModel()
-            }
+            .map(\.toMainDataModel)
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] dataModel in
                 self?.dataModel = dataModel

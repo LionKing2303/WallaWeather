@@ -25,6 +25,20 @@ extension DetailsModel {
 struct DetailsResponseModel: Codable {
     let city: City?
     let list: [Forecast]
+    
+    // NOTE: This computed variable is used for converting it to the city screen data model
+    var toDetailsModel: DetailsModel {
+        var cityName: String = ""
+        var forecasts: [DetailsModel.Forecast] = []
+        cityName = self.city?.name ?? ""
+        forecasts = self.list.compactMap { forecast -> DetailsModel.Forecast? in
+            if let dt = forecast.dt, let temperature = forecast.main?.temp {
+                return DetailsModel.Forecast(date: Date(timeIntervalSince1970: dt).formattedDate(), temperature: "\(temperature)℃")
+            }
+            return nil
+        }
+        return DetailsModel(cityName: cityName, forecasts: forecasts)
+    }
 }
 
 extension DetailsResponseModel {
@@ -43,21 +57,5 @@ extension DetailsResponseModel {
 extension DetailsResponseModel {
     struct Main: Codable {
         let temp: Double?
-    }
-}
-
-extension DetailsResponseModel {
-    // NOTE: This extension is used for converting it to the city screen data model
-    func toDetailsModel() -> DetailsModel {
-        var cityName: String = ""
-        var forecasts: [DetailsModel.Forecast] = []
-        cityName = self.city?.name ?? ""
-        forecasts = self.list.compactMap { forecast -> DetailsModel.Forecast? in
-            if let dt = forecast.dt, let temperature = forecast.main?.temp {
-                return DetailsModel.Forecast(date: Date(timeIntervalSince1970: dt).formattedDate(), temperature: "\(temperature)℃")
-            }
-            return nil
-        }
-        return DetailsModel(cityName: cityName, forecasts: forecasts)
     }
 }
