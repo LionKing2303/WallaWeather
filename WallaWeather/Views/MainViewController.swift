@@ -25,17 +25,7 @@ enum Layout: String {
     }
 }
 
-// NOTE: Used to get details about a city id or a specific location
-struct UserLocation {
-    enum LocationType {
-        case id
-        case location
-    }
-    
-    let type: LocationType
-    let cityId: String?
-    let location: CLLocation?
-}
+
 
 class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate  {
     

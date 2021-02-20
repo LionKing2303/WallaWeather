@@ -8,6 +8,14 @@
 
 import Foundation
 
+// Configure the default cities that we want to fetch data for by id.
+enum CityIdentifier: String {
+    case Jerusalem = "281184"
+    case TelAviv = "293397"
+    case Haifa = "294801"
+    case Eilat = "295277"
+}
+
 class APIClient {
     
     // Define the possible server errors

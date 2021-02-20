@@ -31,4 +31,15 @@ class WallaWeatherTests: XCTestCase {
         }
     }
 
+    func testCurrentWeatherResponseModelToMainDataModel() {
+        let weather: CurrentWeatherResponseModel.Weather = .init(icon: "image")
+        let main: CurrentWeatherResponseModel.Main = .init(temp: 24)
+        let city: CurrentWeatherResponseModel.City = .init(id: 0, name: "Test City", main: main, weather: [weather])
+        
+        let responseDataModel: CurrentWeatherResponseModel = .init(list: [city])
+        let mainDataModel: MainDataModel = responseDataModel.toMainDataModel
+        
+        let cityId: String = String(format: "%.0f", (responseDataModel.list[0].id)!)
+        XCTAssertEqual(cityId, mainDataModel.forecasts[1].cityId)
+    }
 }
